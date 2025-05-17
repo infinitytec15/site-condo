@@ -47,15 +47,6 @@ export default function Home() {
       {/* Testimonials Section */}
       <section className="w-full py-16 md:py-24 px-4">
         <div className="container mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              O Que Nossos Clientes Dizem
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Conheça as experiências de síndicos e administradores que já
-              utilizam nossa solução
-            </p>
-          </div>
           <TestimonialsSection />
         </div>
       </section>

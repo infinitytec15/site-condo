@@ -218,7 +218,7 @@ export default function Footer() {
             © {new Date().getFullYear()} CondoGest. Todos os direitos
             reservados.
           </p>
-          <div className="flex justify-center md:justify-end space-x-4 text-sm">
+          <div className="flex justify-center sm:justify-end space-x-4 text-sm">
             <Link
               href="#"
               className="text-slate-400 hover:text-white transition-colors duration-300"
