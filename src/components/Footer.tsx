@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
@@ -71,6 +73,32 @@ export default function Footer() {
               <a
                 href="#"
                 className="text-slate-300 hover:text-white transition-colors duration-300 transform hover:scale-110"
+                onClick={() => {
+                  if (typeof window !== "undefined") {
+                    // Track social media click in GTM
+                    if (window.dataLayer) {
+                      window.dataLayer.push({
+                        event: "social_media_click",
+                        social_platform: "linkedin",
+                        link_location: "footer",
+                      });
+                    }
+                    // Track directly in GA4
+                    if (window.gtag) {
+                      window.gtag("event", "social_media_click", {
+                        social_platform: "linkedin",
+                        link_location: "footer",
+                      });
+                    }
+                    // Track in Meta Pixel
+                    if (window.fbq) {
+                      window.fbq("track", "Contact", {
+                        content_name: "LinkedIn Click",
+                        content_category: "Social Media",
+                      });
+                    }
+                  }
+                }}
               >
                 <Linkedin size={20} />
               </a>
@@ -205,7 +233,28 @@ export default function Footer() {
                 placeholder="Seu e-mail"
                 className="bg-slate-800 border-slate-700 text-white rounded-r-none focus-visible:ring-blue-500"
               />
-              <Button className="button-3d bg-gradient-to-r from-blue-500 to-purple-600 rounded-l-none">
+              <Button
+                className="button-3d bg-gradient-to-r from-blue-500 to-purple-600 rounded-l-none"
+                onClick={() => {
+                  if (typeof window !== "undefined") {
+                    // Track newsletter subscription in GTM
+                    if (window.dataLayer) {
+                      window.dataLayer.push({
+                        event: "newsletter_subscribe",
+                        button_location: "footer",
+                        form_name: "newsletter_subscription",
+                      });
+                    }
+                    // Track in Meta Pixel
+                    if (window.fbq) {
+                      window.fbq("track", "Subscribe", {
+                        content_name: "Newsletter",
+                        content_category: "Subscription",
+                      });
+                    }
+                  }
+                }}
+              >
                 <Send size={18} />
               </Button>
             </div>

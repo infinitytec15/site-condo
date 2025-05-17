@@ -57,7 +57,27 @@ const HeroSection = ({
                 event: "cta_click",
                 cta_text: ctaText,
                 cta_location: "hero_section",
+                cta_type: "primary",
+                page_section: "hero",
               });
+
+              // Rastreia diretamente no GA4
+              if (typeof window !== "undefined" && window.gtag) {
+                window.gtag("event", "cta_click", {
+                  cta_text: ctaText,
+                  cta_location: "hero_section",
+                  cta_type: "primary",
+                  page_section: "hero",
+                });
+              }
+
+              // Também rastreia no Meta Pixel
+              if (typeof window !== "undefined" && window.fbq) {
+                window.fbq("track", "Lead", {
+                  content_name: "Hero CTA Click",
+                  content_category: "Demo Request",
+                });
+              }
             }}
           >
             {ctaText}

@@ -283,7 +283,26 @@ export default function ContactCTA({
                         sendGTMEvent({
                           event: "new_request_click",
                           button_location: "contact_form_success",
+                          button_text: "Enviar nova solicitação",
+                          form_status: "success",
                         });
+
+                        // Track directly in GA4
+                        if (typeof window !== "undefined" && window.gtag) {
+                          window.gtag("event", "new_request_click", {
+                            button_location: "contact_form_success",
+                            button_text: "Enviar nova solicitação",
+                            form_status: "success",
+                          });
+                        }
+
+                        // Track in Meta Pixel
+                        if (typeof window !== "undefined" && window.fbq) {
+                          window.fbq("track", "StartTrial", {
+                            content_name: "New Request After Success",
+                            content_category: "Form Interaction",
+                          });
+                        }
                         setIsSubmitted(false);
                       }}
                     >

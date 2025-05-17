@@ -26,8 +26,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Define GTM_ID within the component scope
+  // Define tracking IDs within the component scope
   const GTM_ID = "GTM-XXXXXXX"; // Replace with your actual GTM ID
+  const META_PIXEL_ID = "XXXXXXXXXX"; // Replace with your actual Meta Pixel ID
+  const GA4_ID = "G-XXXXXXXXXX"; // Replace with your actual GA4 measurement ID
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -41,6 +43,46 @@ export default function RootLayout({
           })(window,document,'script','dataLayer','${GTM_ID}');
         `}
       </Script>
+      {/* Google Analytics 4 */}
+      <Script
+        id="ga4-script"
+        strategy="afterInteractive"
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}
+      />
+      <Script id="ga4-config" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${GA4_ID}', {
+            page_path: window.location.pathname,
+            send_page_view: true
+          });
+        `}
+      </Script>
+      {/* Meta Pixel Code */}
+      <Script id="facebook-pixel" strategy="afterInteractive">
+        {`
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', '${META_PIXEL_ID}');
+          fbq('track', 'PageView');
+        `}
+      </Script>
+      <noscript>
+        <img
+          height="1"
+          width="1"
+          style={{ display: "none" }}
+          src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
+        />
+      </noscript>
       {/* Google Analytics (via GTM) */}
       <Script src="https://api.tempo.new/proxy-asset?url=https://storage.googleapis.com/tempo-public-assets/error-handling.js" />
       <body

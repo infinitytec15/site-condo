@@ -4,10 +4,11 @@ type DataLayerEvent = {
   [key: string]: any;
 };
 
-// Declaração global para TypeScript reconhecer o dataLayer
+// Declaração global para TypeScript reconhecer o dataLayer e fbq
 declare global {
   interface Window {
     dataLayer: DataLayerEvent[];
+    fbq: any;
   }
 }
 
@@ -23,6 +24,17 @@ export function sendGTMEvent(event: DataLayerEvent): void {
 }
 
 /**
+ * Envia um evento para o Meta Pixel
+ */
+export function sendMetaPixelEvent(eventName: string, params?: object): void {
+  if (typeof window !== "undefined" && window.fbq) {
+    window.fbq("track", eventName, params);
+  } else {
+    console.warn("Meta Pixel fbq not available");
+  }
+}
+
+/**
  * Rastreia visualização de página
  */
 export function trackPageView(url: string, title: string): void {
@@ -33,6 +45,9 @@ export function trackPageView(url: string, title: string): void {
       title: title,
     },
   });
+
+  // Também rastreia no Meta Pixel
+  sendMetaPixelEvent("PageView");
 }
 
 /**
@@ -66,5 +81,45 @@ export function trackFormSubmission(
       name: formName,
       data: formData,
     },
+  });
+
+  // Também rastreia no Meta Pixel
+  sendMetaPixelEvent("Lead", { form_name: formName });
+}
+
+/**
+ * Rastreia cliques em links
+ */
+export function trackLinkClick(
+  linkUrl: string,
+  linkText: string,
+  linkLocation: string,
+): void {
+  sendGTMEvent({
+    event: "link_click",
+    link: {
+      url: linkUrl,
+      text: linkText,
+      location: linkLocation,
+    },
+  });
+}
+
+/**
+ * Rastreia visualização de seção
+ */
+export function trackSectionView(sectionName: string, sectionId: string): void {
+  sendGTMEvent({
+    event: "section_view",
+    section: {
+      name: sectionName,
+      id: sectionId,
+    },
+  });
+
+  // Também rastreia no GA4 diretamente
+  sendGA4Event("section_view", {
+    section_name: sectionName,
+    section_id: sectionId,
   });
 }
