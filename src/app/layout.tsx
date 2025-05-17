@@ -2,7 +2,12 @@ import { TempoInit } from "@/components/tempo-init";
 import type { Metadata } from "next";
 import { Inter, Poppins, Montserrat } from "next/font/google";
 import Script from "next/script";
+import dynamic from "next/dynamic";
 import "./globals.css";
+
+const WhatsAppWidget = dynamic(() => import("@/components/WhatsAppWidget"), {
+  ssr: false,
+});
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const poppins = Poppins({
@@ -98,6 +103,7 @@ export default function RootLayout({
           />
         </noscript>
         {children}
+        <WhatsAppWidget />
         <TempoInit />
       </body>
     </html>
