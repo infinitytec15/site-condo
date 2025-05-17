@@ -7,14 +7,14 @@ import { Facebook, Instagram, Linkedin, Twitter, Send } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-900 text-white pt-16 pb-8 px-4 relative overflow-hidden">
+    <footer className="w-full bg-slate-900 text-white pt-16 pb-8 px-0 relative overflow-hidden">
       {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-yellow-500"></div>
       <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl"></div>
       <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
 
-      <div className="container mx-auto max-w-6xl relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+      <div className="px-4 sm:px-6 md:px-8 max-w-6xl mx-auto relative z-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Column 1: About */}
           <div>
             <div className="mb-4">
@@ -213,8 +213,8 @@ export default function Footer() {
         </div>
 
         {/* Bottom section */}
-        <div className="pt-8 border-t border-slate-800 text-center md:flex md:justify-between md:items-center">
-          <p className="text-slate-400 text-sm mb-4 md:mb-0">
+        <div className="pt-8 border-t border-slate-800 text-center sm:flex sm:justify-between sm:items-center">
+          <p className="text-slate-400 text-sm mb-4 sm:mb-0">
             © {new Date().getFullYear()} CondoGest. Todos os direitos
             reservados.
           </p>
