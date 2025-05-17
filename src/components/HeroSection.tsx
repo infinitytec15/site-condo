@@ -53,22 +53,6 @@ const HeroSection = ({
             <ArrowRight className="ml-1 sm:ml-2 h-4 w-4 sm:h-5 sm:w-5" />
           </Button>
         </div>
-
-        <div className="mt-8 sm:mt-12 md:mt-16 relative">
-          <div className="absolute inset-0 bg-gradient-to-t from-blue-600 to-transparent opacity-75"></div>
-          <div className="relative rounded-lg sm:rounded-xl overflow-hidden shadow-3d border-2 sm:border-4 border-white/20">
-            <Image
-              src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&q=80"
-              alt="Dashboard do sistema de gestão condominial"
-              width={1200}
-              height={675}
-              className="w-full h-auto object-cover"
-            />
-            <div className="absolute top-2 sm:top-4 right-2 sm:right-4 bg-yellow-400 rounded-full p-1 sm:p-2 shadow-lg animate-pulse">
-              <Star className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
