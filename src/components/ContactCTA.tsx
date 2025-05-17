@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from "./ui/select";
 import { motion } from "framer-motion";
+import { sendGTMEvent } from "@/lib/gtm";
 
 interface ContactCTAProps {
   title?: string;
@@ -76,6 +77,15 @@ export default function ContactCTA({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    // Track form submission event
+    sendGTMEvent({
+      event: "form_submission",
+      form: {
+        name: "contact_demo_request",
+        data: formData,
+      },
+    });
 
     // Simulate form submission
     setTimeout(() => {
@@ -268,7 +278,14 @@ export default function ContactCTA({
                     </p>
                     <Button
                       className="mt-8 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium px-6 py-2 rounded-full transition-all duration-300 transform hover:scale-105"
-                      onClick={() => setIsSubmitted(false)}
+                      onClick={() => {
+                        // Evento de clique no botão de nova solicitação
+                        sendGTMEvent({
+                          event: "new_request_click",
+                          button_location: "contact_form_success",
+                        });
+                        setIsSubmitted(false);
+                      }}
                     >
                       Enviar nova solicitação
                     </Button>

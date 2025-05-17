@@ -1,7 +1,10 @@
+"use client";
+
 import React from "react";
 import { Button } from "./ui/button";
 import { ArrowRight, Sparkles, Star } from "lucide-react";
 import Image from "next/image";
+import { sendGTMEvent } from "@/lib/gtm";
 
 interface HeroSectionProps {
   title?: string;
@@ -48,6 +51,14 @@ const HeroSection = ({
           <Button
             size="lg"
             className="button-3d relative bg-white text-blue-600 hover:bg-blue-50 font-heading font-bold text-sm sm:text-base md:text-lg px-4 sm:px-6 md:px-8 py-2 sm:py-4 md:py-6 h-auto shadow-3d"
+            onClick={() => {
+              // Evento de clique no botão CTA principal
+              sendGTMEvent({
+                event: "cta_click",
+                cta_text: ctaText,
+                cta_location: "hero_section",
+              });
+            }}
           >
             {ctaText}
             <ArrowRight className="ml-1 sm:ml-2 h-4 w-4 sm:h-5 sm:w-5" />
